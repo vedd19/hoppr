@@ -69,3 +69,53 @@ This endpoint allows a new user to register by providing their details. It valid
 ## Status Codes
 - **201 Created**: The user has been successfully registered.
 - **400 Bad Request**: The request data is invalid or missing required fields. The response will include details about the validation errors.
+
+
+
+
+## Endpoint
+`POST /users/login`
+
+Request Body (JSON)
+- email (string, required) — must be a valid email.
+- password (string, required) — minimum 6 characters.
+
+Example request
+```json
+{
+  "email": "user@example.com",
+  "password": "securepassword"
+}
+```
+
+Success Response
+- Status: 200 OK
+- Body:
+```json
+{
+  "token": "JWT_TOKEN_HERE",
+  "user": {
+    "_id": "USER_ID_HERE",
+    "fullname": {
+      "firstname": "John",
+      "lastname": "Doe"
+    },
+    "email": "user@example.com"
+  }
+}
+```
+
+Error Responses
+- 400 Bad Request — validation failed. Example:
+```json
+{
+  "errors": [
+    { "msg": "invalid email", "param": "email" },
+    { "msg": "password must be atleast 6 character long", "param": "password" }
+  ]
+}
+```
+- 401 Unauthorized — invalid credentials. Example:
+```json
+{ "message": "invalid email or password" }
+```
