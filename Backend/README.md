@@ -143,3 +143,51 @@ Logout the current user and blacklist the token provided in the cookie or header
 `GET`
 ### Authentication
 Requires a valid JWT token in the Authorization header or cookie;
+
+
+
+## CAPTAIN
+
+## `/captains/register` Endpoint
+
+### Description
+
+Registers a new captain account with the provided information
+
+### HTTP Method
+`POST`
+
+### Request Body
+
+Ther the request body should be in json format and should include
+
+-`fullname`(object):
+  -`firstname` (string,required);
+  -`lastname` (string);
+-`email` (string,required);
+-`password` (string,required);
+-`vehicle` (object):
+  -`color` (string,required);
+  -`plate` (string,required);
+  -`capacity` (number,required);
+  -`vehicleType` (string,required);
+
+
+### example response
+
+`captain`: {
+        `fullname`: {
+            `firstname`: "first name",
+            `lastname`: "lastname"
+        },
+        `email`: "mail@gmail.com",
+        `password`: hashed password,
+        `status`: "inactive",
+        `vehicle`: {
+            `color`: "color",
+            `plate`: "plate",
+            `capacity`: 1,
+            `vehicleType`:"motorcycle"
+        },
+    }
+
