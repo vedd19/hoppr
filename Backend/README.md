@@ -119,3 +119,27 @@ Error Responses
 ```json
 { "message": "invalid email or password" }
 ```
+
+
+
+## `/users/profile` Endpoint
+
+### Description
+
+checks if the token is isBlacklisted and decodes the token and finds the user in the database by _id and set it to req.user
+
+### HTTP Method
+`GET`
+
+### Authentication
+Requires a valid JWT token in the Authorization header or cookie;
+
+
+
+## `/users/logout` Endpoint
+### Description
+Logout the current user and blacklist the token provided in the cookie or headers
+### HTTP Method
+`GET`
+### Authentication
+Requires a valid JWT token in the Authorization header or cookie;
