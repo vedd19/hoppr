@@ -191,3 +191,77 @@ Ther the request body should be in json format and should include
         },
     }
 
+
+## `/captains/login` Endpoint
+
+## method
+`POST`
+
+## description
+logs in a captain via email and password
+
+## request body
+email : example@gmail.com
+password : *****
+
+## example response
+
+`captain`: {
+        "fullname": {
+            "firstname": "ved",
+            "lastname": "mahato"
+        },
+        "vehicle": {
+            "color": "red",
+            "plate": "jh05ab1234",
+            "capacity": 2,
+            "vehicleType": "motorcycle"
+        },
+        "_id": "#####",
+        "email": "example@gmail.com",
+        "password": hashed_password,
+        "status": "inactive",
+    },
+
+
+## `/captains/profile` Endpoint
+
+## method
+`GET`
+
+## description
+shows the profile of the captain
+
+## example response
+
+`captain`: {
+        "fullname": {
+            "firstname": "ved",
+            "lastname": "mahato"
+        },
+        "vehicle": {
+            "color": "red",
+            "plate": "jh05ab1234",
+            "capacity": 2,
+            "vehicleType": "motorcycle"
+        },
+        "_id": "#####",
+        "email": "example@gmail.com",
+        "password": hashed_password,
+        "status": "inactive",
+    },
+
+
+## `/captains/logout` Endpoint
+
+## method
+`GET`
+
+## description
+logs out the captain and adds him to trhe blacklisted database.
+
+
+
+
+
+
