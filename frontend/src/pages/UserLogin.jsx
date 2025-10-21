@@ -1,7 +1,13 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
+import axios from 'axios';
+import { UserDataContext } from '../context/userContext';
+import { useNavigate } from 'react-router-dom';
 
 export const UserLogin = () => {
+
+    const navigate = useNavigate();
+    const { user, setUser } = useContext(UserDataContext)
 
     const [userData, setuserData] = useState({
         email: "",
@@ -13,8 +19,20 @@ export const UserLogin = () => {
         setuserData((prev) => ({ ...prev, [e.target.name]: e.target.value }))
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+
+        try {
+            const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/users/login`, userData);
+            if (response.status === 200) {
+                const data = response.data;
+                setUser(data.user);
+                localStorage.setItem('token', data.token);
+                navigate('/home');
+            }
+        } catch (err) {
+            console.log(err)
+        }
 
         console.log(userData)
 

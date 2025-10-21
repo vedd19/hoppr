@@ -11,7 +11,11 @@ const cookieParser = require('cookie-parser')
 
 connectToDB();
 
-app.use(cors());
+app.use(cors({
+    origin: "*",
+    allowedHeaders: ["Content-Type", "Authorization"],
+
+}));
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(cookieParser())

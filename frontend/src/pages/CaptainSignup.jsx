@@ -1,13 +1,27 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { useSnackbar } from 'notistack';
+import React, { useContext, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom';
+import { CaptainDataContext } from '../context/CaptainContext';
+
+
 
 export const CaptainSignup = () => {
+
+    const { captain, setCaptain } = useContext(CaptainDataContext);
+
+    const { enqueueSnackbar } = useSnackbar();
+    const navigate = useNavigate();
 
     const [userData, setuserData] = useState({
         firstname: "",
         lastname: "",
         email: "",
         password: "",
+        vehicleColor: "",
+        vehiclePlate: "",
+        vehicleCapacity: "",
+        vehicleType: "",
     });
 
 
@@ -15,9 +29,41 @@ export const CaptainSignup = () => {
         setuserData((prev) => ({ ...prev, [e.target.name]: e.target.value }))
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
+        const payload = {
+            fullname: {
+                firstname: userData.firstname,
+                lastname: userData.lastname,
+            },
+            email: userData.email,
+            password: userData.password,
+            vehicle: {
+                color: userData.vehicleColor,
+                plate: userData.vehiclePlate,
+                capacity: userData.vehicleCapacity,
+                vehicleType: userData.vehicleType,
+            }
+        }
+
+        try {
+            console.log('payload', payload)
+            const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/captains/register`, { ...payload })
+
+            if (response.status === 201) {
+                const token = response.data.token;
+                localStorage.setItem('token', token);
+                setCaptain(response.data.captain);
+                enqueueSnackbar('Captain account created successfully', { variant: 'success' });
+                navigate('/captain-home');
+            } else {
+                enqueueSnackbar(response.data.message, { variant: 'warning' });
+            }
+
+        } catch (err) {
+            console.log(err)
+        }
         console.log(userData)
 
         setuserData({
@@ -25,6 +71,10 @@ export const CaptainSignup = () => {
             lastname: "",
             email: "",
             password: "",
+            vehicleColor: "",
+            vehiclePlate: "",
+            vehicleCapacity: "",
+            vehicleType: "",
         })
     }
 
@@ -79,6 +129,60 @@ export const CaptainSignup = () => {
                         placeholder='mail@example.com'
                     />
 
+                    <h3 className='text-lg font-medium mb-2'>Vehicle Information</h3>
+                    <div className='flex gap-4 mb-4'>
+                        <input
+                            required
+                            className='bg-[#eeeeee] w-1/2 rounded-lg px-4 py-2 border text-lg placeholder:text-base'
+                            type="text"
+                            name='vehicleColor'
+                            placeholder='Vehicle Color'
+                            value={userData.vehicleColor}
+                            onChange={(e) => {
+                                handleInputChange(e);
+                            }}
+                        />
+                        <input
+                            required
+                            className='bg-[#eeeeee] w-1/2 rounded-lg px-4 py-2 border text-lg placeholder:text-base'
+                            type="text"
+                            name='vehiclePlate'
+                            placeholder='Vehicle Plate'
+                            value={userData.vehiclePlate}
+                            onChange={(e) => {
+                                handleInputChange(e);
+                            }}
+                        />
+                    </div>
+                    <div className='flex gap-4 mb-4'>
+                        <input
+                            required
+                            className='bg-[#eeeeee] w-1/2 rounded-lg px-4 py-2 border text-lg placeholder:text-base'
+                            type="number"
+                            name='vehicleCapacity'
+                            placeholder='Vehicle Capacity'
+                            value={userData.vehicleCapacity}
+                            onChange={(e) => {
+                                handleInputChange(e);
+                            }}
+                        />
+                        <select
+                            required
+                            className='bg-[#eeeeee] w-1/2 rounded-lg px-4 py-2 border text-lg placeholder:text-base'
+                            value={userData.vehicleType}
+                            name='vehicleType'
+                            onChange={(e) => {
+                                handleInputChange(e);
+                            }}
+                        >
+                            <option value="" disabled>Select Vehicle Type</option>
+                            <option value="car">car</option>
+                            <option value="auto">auto</option>
+                            <option value="motorcycle">motorcycle</option>
+                        </select>
+                    </div>
+
+
                     <h3 className='text-base font-medium mb-2'>Enter Password</h3>
                     <input
                         value={userData.password}
@@ -96,7 +200,7 @@ export const CaptainSignup = () => {
                         type='submit'
                         className='bg-[#111] text-white font-semibold rounded px-4 py-2 w-full mb-5 text-lg'
                     >
-                        Register
+                        Create Captain Account
                     </button>
                 </form>
                 <p className='text-center mt-0'>Already have a captain account?? <Link to='/captain-login' className='text-blue-500'>Sign in here</Link></p>

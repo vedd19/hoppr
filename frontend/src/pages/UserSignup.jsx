@@ -1,5 +1,8 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom';
+import axios from 'axios'
+import { UserDataContext } from '../context/UserContext.jsx';
+import { useNavigate } from 'react-router-dom';
 
 export const UserSignup = () => {
 
@@ -10,13 +13,37 @@ export const UserSignup = () => {
         password: "",
     });
 
+    const { user, setUser } = useContext(UserDataContext);
+    const navigate = useNavigate()
+
 
     const handleInputChange = (e) => {
         setuserData((prev) => ({ ...prev, [e.target.name]: e.target.value }))
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const newUser = {
+            fullname: {
+                firstname: userData.firstname,
+                lastname: userData.lastname,
+            },
+            email: userData.email,
+            password: userData.password
+        }
+
+        try {
+            const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/users/register`, newUser);
+            if (response.status === 201) {
+                const data = response.data;
+                setUser(data.user);
+                localStorage.setItem('token', data.token)
+                navigate('/home')
+            }
+        } catch (err) {
+            console.log('error in frontend /users/register post request', err)
+        }
 
         console.log(userData)
 
