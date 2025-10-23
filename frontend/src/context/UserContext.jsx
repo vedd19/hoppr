@@ -10,12 +10,13 @@ export const UserContext = ({ children }) => {
         },
         email: '',
     })
+    const [isLogo, setIsLogo] = useState(true);
 
-   
+
 
     return (
         <div>
-            <UserDataContext.Provider value={{ user, setUser}}>
+            <UserDataContext.Provider value={{ user, setUser, isLogo, setIsLogo }}>
                 {children}
             </UserDataContext.Provider>
         </div>
