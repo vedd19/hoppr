@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { Outlet, Route, Routes } from 'react-router-dom'
 
 import { Logo } from './components/Logo'
-import { UserDataContext } from './context/userContext'
+import { UserDataContext } from './context/UserContext'
 
 
 

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { UserDataContext } from '../context/userContext';
+import { UserDataContext } from '../context/UserContext';
 import axios from 'axios';
 import backgroundImage from '../assets/background2.png';
 import { useGSAP } from "@gsap/react";
