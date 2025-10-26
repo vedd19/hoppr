@@ -11,7 +11,7 @@ import { CaptainSignup } from './pages/CaptainSignup.jsx'
 import { Home } from './pages/Home.jsx'
 import UserProtectedWrapper from './pages/UserProtectedWrapper.jsx'
 import CaptainContext from './context/CaptainContext.jsx'
-// import { UserContext } from './context/UserContext.jsx'
+import { UserContext } from './context/UserContext.jsx'
 import { SnackbarProvider } from 'notistack';
 import { CaptainHome } from './pages/CaptainHome.jsx'
 import { CaptainProtectedWrapper } from './pages/CaptainProtectedWrapper.jsx'
