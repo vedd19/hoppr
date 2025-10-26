@@ -1,8 +1,8 @@
-import React, { createContext, useState } from 'react'
+import React, { useState } from 'react'
 
-export const CaptainDataContext = createContext();
+import { CaptainDataContext } from './CaptainDataContext';
 
-export const CaptainContext = ({ children }) => {
+const CaptainContext = ({ children }) => {
 
     // const captain = {
     //     fullname: {
@@ -23,3 +23,5 @@ export const CaptainContext = ({ children }) => {
         </CaptainDataContext.Provider>
     )
 }
+
+export default CaptainContext;

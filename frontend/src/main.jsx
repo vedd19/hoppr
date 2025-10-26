@@ -11,10 +11,13 @@ import { CaptainSignup } from './pages/CaptainSignup.jsx'
 import { UserContext } from './context/userContext.jsx'
 import { Home } from './pages/Home.jsx'
 import UserProtectedWrapper from './pages/UserProtectedWrapper.jsx'
-import { CaptainContext } from './context/CaptainContext.jsx'
+import CaptainContext from './context/CaptainContext.jsx'
 import { SnackbarProvider } from 'notistack';
 import { CaptainHome } from './pages/CaptainHome.jsx'
 import { CaptainProtectedWrapper } from './pages/CaptainProtectedWrapper.jsx'
+import CaptainRiding from './pages/CaptainRiding.jsx'
+import SocketProvider from './context/SocketContext.jsx'
+import Riding from './pages/Riding.jsx'
 
 const router = createBrowserRouter([
   {
@@ -24,6 +27,14 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <Start />
+      },
+      {
+        path: '/riding',
+        element: <Riding />
+      },
+      {
+        path: '/captain-riding',
+        element: <CaptainRiding />
       },
       {
         path: '/home',
@@ -49,6 +60,10 @@ const router = createBrowserRouter([
         path: '/captain-signup',
         element: <CaptainSignup />
       },
+      {
+        path: '/captain-riding',
+        element: <CaptainRiding />
+      },
     ],
   }
 ])
@@ -59,11 +74,13 @@ root.render(
 
   <StrictMode>
     <SnackbarProvider>
-      <CaptainContext>
-        <UserContext>
-          <RouterProvider router={router} />
-        </UserContext>
-      </CaptainContext>
+      <SocketProvider>
+        <CaptainContext>
+          <UserContext>
+            <RouterProvider router={router} />
+          </UserContext>
+        </CaptainContext>
+      </SocketProvider>
     </SnackbarProvider>
   </StrictMode>,
 )

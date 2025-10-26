@@ -3,7 +3,7 @@ import car from '../assets/car.png';
 import motorcycle from '../assets/motorcycle.png';
 import auto from '../assets/rikshaw.png';
 
-export const SelectDrive = ({ vehicleSelected, setVehicleSelected, setVehiclePanel, setUserInfo }) => {
+export const SelectDrive = ({ fare, vehicleSelected, setVehicleSelected, setVehiclePanel, setUserInfo, setVehicleType }) => {
 
 
 
@@ -12,9 +12,16 @@ export const SelectDrive = ({ vehicleSelected, setVehicleSelected, setVehiclePan
         setVehicleSelected(true)
         setVehiclePanel(false);
     }
+
+
     return (
         <div className=' px-5 flex flex-col gap-2'>
-            <div onClick={handleSelectVehicleClick} className=" cursor-pointer border-3 border-gray-50 hover:border-gray-700 rounded-xl flex justify-between items-center p-2">
+            <div onClick={() => {
+                setVehicleSelected(true)
+                setVehiclePanel(false);
+                setVehicleType("car")
+            }}
+                className=" cursor-pointer border-3 border-gray-50 hover:border-gray-700 rounded-xl flex justify-between items-center p-2">
 
                 <div className="flex justify-start items-center gap-5">
                     <div className='h-15 flex bg-gray-100 p-2 rounded-[100%]'>
@@ -35,12 +42,17 @@ export const SelectDrive = ({ vehicleSelected, setVehicleSelected, setVehiclePan
                 </div>
 
                 <div className="self-start">
-                    <h4 className='text-lg font-semibold'>₹193</h4>
+                    <h4 className='text-lg font-semibold'>₹{fare.car}</h4>
                 </div>
 
             </div>
 
-            <div onClick={handleSelectVehicleClick} className="cursor-pointer border-3 border-gray-50  hover:border-gray-700 rounded-xl flex justify-between items-center p-2">
+            <div onClick={() => {
+                setVehicleSelected(true)
+                setVehiclePanel(false);
+                setVehicleType("motorcycle")
+            }}
+                className="cursor-pointer border-3 border-gray-50  hover:border-gray-700 rounded-xl flex justify-between items-center p-2">
 
                 <div className="flex justify-start items-center gap-5">
                     <div className='h-15 flex bg-gray-100 p-2 rounded-[100%]'>
@@ -61,12 +73,16 @@ export const SelectDrive = ({ vehicleSelected, setVehicleSelected, setVehiclePan
                 </div>
 
                 <div className="self-start">
-                    <h4 className='text-lg font-semibold'>₹65</h4>
+                    <h4 className='text-lg font-semibold'>₹{fare.motorcycle}</h4>
                 </div>
 
             </div>
 
-            <div onClick={handleSelectVehicleClick} className="cursor-pointer border-3 border-gray-50  hover:border-gray-700 rounded-xl flex justify-between items-center p-2">
+            <div onClick={() => {
+                setVehicleSelected(true)
+                setVehiclePanel(false);
+                setVehicleType("auto")
+            }} className="cursor-pointer border-3 border-gray-50  hover:border-gray-700 rounded-xl flex justify-between items-center p-2">
 
                 <div className="flex justify-start items-center gap-5">
                     <div className='h-15 flex bg-gray-100 p-2 rounded-[100%]'>
@@ -87,7 +103,7 @@ export const SelectDrive = ({ vehicleSelected, setVehicleSelected, setVehiclePan
                 </div>
 
                 <div className="self-start">
-                    <h4 className='text-lg font-semibold'>₹118</h4>
+                    <h4 className='text-lg font-semibold'>₹{fare.auto}</h4>
                 </div>
 
             </div>

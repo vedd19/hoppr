@@ -1,7 +1,9 @@
 import React from 'react'
 import car from '../assets/car.png';
+import motorcycle from "../assets/motorcycle.png"
+import auto from "../assets/rikshaw.png"
 
-export const DriverWaiting = ({ driverMatched }) => {
+export const DriverWaiting = ({ vehicleType, captain, driverMatched, ride }) => {
     return (
         <div className='h-full flex flex-col gap-10'>
 
@@ -10,14 +12,15 @@ export const DriverWaiting = ({ driverMatched }) => {
 
                 <div className='h-30 flex items-center '>
                     <h3 className='z-1 bg-white rounded-[100%] '><i className="text-7xl ri-account-circle-line"></i></h3>
-                    <img className='-ml-9 h-full object-contain' src={car} alt="" />
+                    <img className='-ml-9 h-full object-contain' src={vehicleType === "car" ? car : (vehicleType === "motorcycle" ? motorcycle : auto)} alt="" />
                 </div>
 
                 <div>
-                    <h4 className='text-xl font-medium text-gray-400'>Name</h4>
-                    <h2 className='text-2xl font-bold'>JH05AB XXXX</h2>
-                    <h2 className='text-xl font-medium text-gray-400'>BMW m4</h2>
+                    <h4 className='text-xl font-medium text-gray-400 capitalize'>{ride?.captain.fullname.firstname + " " + ride?.captain.fullname.lastname}</h4>
+                    <h2 className='text-2xl font-bold'>{ride?.captain.vehicle.plate}</h2>
+                    <h2 className='text-xl font-medium text-gray-400'>{vehicleType === "car" ? 'BMW M4' : (vehicleType === "motorcycle" ? "Royal Enfield GT 650" : 'Piagio 516')}</h2>
                     <h4 className='text-base font-medium'><i className="ri-star-s-fill"></i> 4.9 </h4>
+                    <h4 className='text-medium font-medium'>{ride.otp}</h4>
                 </div>
             </div>
 
@@ -59,10 +62,21 @@ export const DriverWaiting = ({ driverMatched }) => {
                 <h4><i className="ri-map-pin-range-fill"></i></h4>
                 <div>
                     <h4 className='text-xl font-semibold'>Destination</h4>
-                    <p className='text-gray-600 text-sm'>Lorem ipsum dolor sit amet.</p>
+                    <p className='text-gray-600 text-sm'>{ride.destination}</p>
                 </div>
 
             </div>
+
+            {/* <hr className='border-1 border-gray-200 ' />
+
+            <div className='flex gap-3 items-center'>
+                <h4><i className="ri-map-pin-range-fill"></i></h4>
+                <div>
+                    <h4 className='text-xl font-semibold'>Pickup</h4>
+                    <p className='text-gray-600 text-sm'>{ride.pickup}</p>
+                </div>
+
+            </div> */}
 
             <hr className='border-1 border-gray-200 ' />
 
